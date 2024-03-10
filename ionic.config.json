@@ -1,0 +1,7 @@
+{
+  "name": "bottleBlind",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
