@@ -13,7 +13,7 @@ public class BottleClick : MonoBehaviour
 
     Vector3 screenPos;
     Vector3 offset;
-    RaycastHit hit;
+    RaycastHit2D hit;
     Ray ray;
     Transform focus;
     // Update is called once per frame
@@ -24,9 +24,10 @@ public class BottleClick : MonoBehaviour
             Debug.Log("Click");
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin,ray.direction,Color.red,5);
-            if (Physics.Raycast(ray.origin, ray.direction, out hit)) 
+            hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider != null) 
             {
-                Debug.Log(hit.collider.tag);
+                Debug.Log(hit.collider.gameObject);
                 focus = hit.collider.transform;
                 bottle.SetColor(Color.yellow);
                 screenPos = Camera.main.WorldToScreenPoint(focus.position);

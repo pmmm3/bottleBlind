@@ -947,6 +947,10 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 681287524}
+    - target: {fileID: 5376729093883313689, guid: 040b34b21ffe37f449514ee4b07fa7a9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7707398126211951050, guid: 040b34b21ffe37f449514ee4b07fa7a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.1
