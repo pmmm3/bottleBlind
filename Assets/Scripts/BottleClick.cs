@@ -6,33 +6,89 @@ public class BottleClick : MonoBehaviour
 {
     // Start is called before the first frame update
     private Bottle bottle;
+    private RaycastHit2D hit;
+    private Ray ray;
+
+    private bool drag;
+    [SerializeField] private Vector3 oldPos;
+    [SerializeField] private Vector3 newPos;
+
+    private BottleClick otherBottle;
+
     void Start()
     {
         bottle = GetComponent<Bottle>();
+        oldPos = transform.position;
+        newPos = oldPos;
     }
 
-    Vector3 screenPos;
-    Vector3 offset;
-    RaycastHit2D hit;
-    Ray ray;
-    Transform focus;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Bottle"))
+        {
+            newPos = collision.transform.position;
+            otherBottle = collision.GetComponent<BottleClick>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Bottle"))
+        {
+            newPos = oldPos;
+            otherBottle = null;
+        }
+    }
+    private void OnMouseDown()
+    {
+        drag = true;
+    }
+
+    private void OnMouseUp()
+    {
+        drag = false;
+        if (newPos != oldPos)
+        {
+            transform.position = newPos;
+            otherBottle.transform.position = oldPos;
+            otherBottle.SetOldPos(oldPos);
+            oldPos = newPos;
+        }
+        else if(newPos == oldPos)
+        {
+            transform.position = newPos;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        BottleDrag();
+    }
+
+    public void SetOldPos(Vector3 pos)
+    {
+        newPos = oldPos = pos;
+    }
+
+    void BottleClickSelect()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Click");
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin,ray.direction,Color.red,5);
             hit = Physics2D.Raycast(ray.origin, ray.direction);
-            if (hit.collider != null) 
+            if (hit.collider != null)
             {
-                Debug.Log(hit.collider.gameObject);
-                focus = hit.collider.transform;
                 bottle.SetColor(Color.yellow);
-                screenPos = Camera.main.WorldToScreenPoint(focus.position);
-                offset = focus.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,screenPos.z));
             }
+        }
+    }
+
+    private void BottleDrag()
+    {
+        if (drag)
+        {
+            Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            transform.Translate(MousePos);
         }
     }
 }
