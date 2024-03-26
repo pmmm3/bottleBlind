@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BottleClick : MonoBehaviour
+public class BottleInteraction : MonoBehaviour
 {
     // Start is called before the first frame update
     private Bottle bottle;
@@ -13,7 +13,7 @@ public class BottleClick : MonoBehaviour
     [SerializeField] private Vector3 oldPos;
     [SerializeField] private Vector3 newPos;
 
-    private BottleClick otherBottle;
+    private BottleInteraction otherBottle;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class BottleClick : MonoBehaviour
         if(collision.CompareTag("Bottle"))
         {
             newPos = collision.transform.position;
-            otherBottle = collision.GetComponent<BottleClick>();
+            otherBottle = collision.GetComponent<BottleInteraction>();
         }
     }
 
