@@ -1,15 +1,24 @@
 using UnityEngine;
 
-public class Bottle : MonoBehaviour
+namespace BotBlind.Bottle
 {
-    private int id;
-    private bool selected;
-    private Color color;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-
-
-    public void SetColor(Color color)
+    public class Bottle : MonoBehaviour
     {
-        spriteRenderer.color = this.color = color;
+        private int id;
+        private bool selected;
+        private Color _color;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+
+
+        public void SetColor(Color color)
+        {
+            spriteRenderer.color = this._color = color;
+        }
+
+        public Color GetColor()
+        {
+            return this._color;
+        }
+        
     }
 }
