@@ -818,7 +818,8 @@ MonoBehaviour:
   - {fileID: 1551492073}
   - {fileID: 207537262}
   - {fileID: 1235509111}
-  _numBottles: 3
+  _positionsVisibleBottles: []
+  _numBottles: 8
 --- !u!1001 &884616166
 PrefabInstance:
   m_ObjectHideFlags: 0
